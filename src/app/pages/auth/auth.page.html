@@ -8,7 +8,11 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+Aqui deben ir las empresas
 <ion-content>
-  <router-outlet></router-outlet>
+  <router-outlet>
+    <ion-content>
+      <ion-card *ngFor="let empresa of companies"> </ion-card>
+    </ion-content>
+  </router-outlet>
 </ion-content>
