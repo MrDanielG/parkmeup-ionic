@@ -8,11 +8,29 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-Aqui deben ir las empresas
+
 <ion-content>
-  <router-outlet>
+  <ion-router-outlet>
     <ion-content>
-      <ion-card *ngFor="let empresa of companies"> </ion-card>
+      <div *ngFor="let compania of companias">
+        <ion-card *ngIf="compania; else sinCompania">
+          <img src="../../../assets/shapes.svg" alt="shapes.svg" />
+          <ion-card-header>
+            <ion-card-subtitle> {{ compania.createdBy }} </ion-card-subtitle>
+            <ion-card-title>{{ compania.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content> {{ compania.address }} </ion-card-content>
+        </ion-card>
+      </div>
+
+      <ng-template #sinCompania>
+        <ion-buttons>
+          <ion-button>
+            Crear Compañia
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
     </ion-content>
-  </router-outlet>
+  </ion-router-outlet>
 </ion-content>
