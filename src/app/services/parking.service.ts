@@ -43,7 +43,7 @@ export class ParkingService {
         const queryBuilder = Backendless.DataQueryBuilder.create();
         queryBuilder
             .setWhereClause(`objectId = '${companyObjectId}'`)
-            .setRelated(['employees']);
+            .setRelated(['employees', 'parkingLots']);
 
         return CompanyStore.find<Company>(queryBuilder).then(results => {
             if (results && results.length) {
@@ -53,17 +53,27 @@ export class ParkingService {
         });
     }
 
-    public addMemberToCompany(memberEmail: string): Promise<void> {
-        // TODO: Implement this!
-        return new Promise((resolve, reject) => {
-            setTimeout(reject, 1500, false);
+    public addMemberToCompany(companyObjectId: string, memberEmail: string): Promise<any> {
+        const UsersStore = Backendless.Data.of('Users');
+        const queryBuilder = Backendless.DataQueryBuilder.create();
+        queryBuilder.setWhereClause(`email = '${memberEmail}'`);
+
+        let userToAdd: Backendless.User;
+        return UsersStore.find(queryBuilder).then((result: Backendless.User[]) => {
+            if (result && result.length) {
+                userToAdd = result[0];
+            }
+            return CompanyStore.addRelation({objectId: companyObjectId}, 'employees', [userToAdd.objectId]);
         });
     }
 
-    public createParkingLot(company: Company, lot: ParkingLot): Promise<void> {
-        // TODO: Implement this!
-        return new Promise((resolve, reject) => {
-            setTimeout(reject, 1500, false);
+    public createParkingLot(companyObjectId: string, lot: ParkingLot): Promise<ParkingLot> {
+        let parkingLot: ParkingLot;
+        return ParkingLotStore.save<ParkingLot>(lot).then(persistedParkingLot => {
+            parkingLot = persistedParkingLot;
+            return CompanyStore.addRelation({objectId: companyObjectId}, 'parkingLots', [persistedParkingLot.objectId]);
+        }).then(() => {
+            return parkingLot;
         });
     }
 }
