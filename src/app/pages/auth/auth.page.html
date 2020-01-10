@@ -1,14 +1,48 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>¡Bienvenido!</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logOut()">
-        <ion-icon slot="icon-only" name="exit"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start">
+    <ion-header>
+      <ion-toolbar translucent>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="home" slot="start"></ion-icon>
+        <ion-label id="nombre">Help</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-buttons slot="start">
+                <ion-button (click)="logOut()">
+                  <ion-icon slot="icon-only" name="exit"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+              <ion-label>Salir</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
 
-<ion-content>
-  <router-outlet></router-outlet>
-</ion-content>
+  <div class="ion-page" main>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>¡Bienvenido!</ion-title>
+    
+      </ion-toolbar>
+    </ion-header>
+    <!--<ion-content class="ion-padding">
+      <ion-button expand="block" ></ion-button>
+    </ion-content>-->
+  </div>
+
+<script>
+  function openMenu() {
+    document.querySelector('ion-menu-controller')
+      .open();
+
+  }
+  
+
+</script>
