@@ -17,6 +17,8 @@ export class AuthPage implements OnInit {
     private parkingService: ParkingService
   ) {}
 
+  
+
   ngOnInit() {
     this.parkingService
       .getCompaniesIBelongTo()
